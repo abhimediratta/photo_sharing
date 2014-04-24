@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :signed_in_user, except: [:new]
   # GET /users
   # GET /users.json
   def index
@@ -44,11 +45,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render json: @user, status: :created, location: @user }
+        format.html { redirect_to @user }
+        #format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        #format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -80,4 +81,11 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+    def signed_in_user
+      redirect_to root_url, flash: {danger: "Please sign in"} unless signed_in?
+    end
+
 end

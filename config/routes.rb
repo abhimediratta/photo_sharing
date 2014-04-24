@@ -2,6 +2,8 @@ PhotoSharing::Application.routes.draw do
   resources :users
   resources :sessions
   root to: 'sessions#new'
+
+  match '/signout' => 'sessions#destroy'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
