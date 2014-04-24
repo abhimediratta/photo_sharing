@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, except: [:new]
+  before_filter :signed_in_user, except: [:new,:create]
   # GET /users
   # GET /users.json
   def index
@@ -45,6 +45,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        sign_in @user
         format.html { redirect_to @user }
         #format.json { render json: @user, status: :created, location: @user }
       else
