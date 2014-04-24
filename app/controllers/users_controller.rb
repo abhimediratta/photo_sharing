@@ -83,10 +83,10 @@ class UsersController < ApplicationController
     end
   end
 
-  private
+  def list_photos
+    
+  end
 
-    def signed_in_user
-      redirect_to root_url, flash: {danger: "Please sign in"} unless signed_in?
-    end
+  
 
 end

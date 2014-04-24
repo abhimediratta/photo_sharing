@@ -1,4 +1,7 @@
 PhotoSharing::Application.routes.draw do
+  resources :photos
+
+
   resources :users
   resources :sessions
   root to: 'sessions#new'

@@ -8,4 +8,10 @@ class ApplicationController < ActionController::Base
     super
   end
 
+  private
+
+    def signed_in_user
+      redirect_to root_url, flash: {danger: "Please sign in"} unless signed_in?
+    end
+
 end

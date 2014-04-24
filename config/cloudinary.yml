@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: photo-sharing
+  api_key: '633887252945579'
+  api_secret: nFJuO5ToNUai_7e9S9LXgr78RFs
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: photo-sharing
+  api_key: '633887252945579'
+  api_secret: nFJuO5ToNUai_7e9S9LXgr78RFs
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: photo-sharing
+  api_key: '633887252945579'
+  api_secret: nFJuO5ToNUai_7e9S9LXgr78RFs
+  enhance_image_tag: true
+  static_image_support: false
