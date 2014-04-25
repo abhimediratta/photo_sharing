@@ -14,29 +14,31 @@
 //= require jquery_ujs
 //= require_tree .
 //= require dropzone
+//= require jquery.swipebox.min
 $(document).ready(function(){
 	var drop_zone;
-
-	drop_zone=new Dropzone("#image_upload",{url: "/photos",enqueueForUpload: true});
-	Dropzone.options.drop_zone = {
-	  acceptedFiles: "image/*",
-	  maxFilesize: 1 // MB
+	$('.swipebox' ).swipebox();
+	if ($('#image_upload').length > 0) {
+		drop_zone=new Dropzone("#image_upload",{url: "/photos",enqueueForUpload: true});
+		Dropzone.options.drop_zone = {
+		  acceptedFiles: "image/*",
+		  maxFilesize: 1 // MB
+		};
+		drop_zone.on("addedfile",function(file){
+			if(file.size > 1048576){
+				alert("Please check if file size is > 1MB");
+				drop_zone.removeFile(file);
+			}
+		});
+		drop_zone.on("sending",function(file,xhr,formData){
+			var csrf_token=$('[name="authencity_token"]').attr("value");
+			formData.append("authencity_token",csrf_token);
+			$('#ajax-loader').show();
+			$('#image_upload').fadeTo(400,0.5);
+		});
+		drop_zone.on("success",function(file,response){
+			$('#ajax-loader').hide();
+			$('#image_upload').fadeTo(400,1);
+		});
 	};
-	drop_zone.on("addedfile",function(file){
-		if(file.size > 1048576){
-			alert("Please check if file size is > 1MB");
-			drop_zone.removeFile(file);
-		}
-	});
-	drop_zone.on("sending",function(file,xhr,formData){
-		var csrf_token=$('[name="authencity_token"]').attr("value");
-		formData.append("authencity_token",csrf_token);
-		$('#ajax-loader').show();
-		$('#image_upload').fadeTo(400,0.5);
-	});
-	drop_zone.on("success",function(file,response){
-		$('#ajax-loader').hide();
-		$('#image_upload').fadeTo(400,1);
-	});
-	
 });
