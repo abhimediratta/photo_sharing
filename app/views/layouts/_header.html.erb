@@ -1,7 +1,7 @@
 <header class="navbar navbar-static-top navbar-inverse" role="navigation">
 	<div class="container-fluid">
 	<% if signed_in? %>
-		<a href="/signout"><button type="button" class="btn btn-default navbar-btn navbar-right ">Sign Out</button></a>
+		<a href="/signout"><button type="button" class="signout btn btn-default navbar-btn navbar-right ">Sign Out</button></a>
 		<% if flash[:success] %>
 			<p class="navbar-text navbar-right">Welcome <%= current_user.name %></p>
 		<% end %>
