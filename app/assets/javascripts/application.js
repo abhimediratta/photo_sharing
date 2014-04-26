@@ -15,9 +15,10 @@
 //= require_tree .
 //= require dropzone
 //= require jquery.swipebox.min
-
+var ajax_loader;
 $(document).ready(function(){
 	var drop_zone;
+  ajax_loader=$('#ajax-loader');
 	$('.swipebox' ).swipebox();
 	if ($('#image_upload').length > 0) {
 		drop_zone=new Dropzone("#image_upload",{url: "/photos",enqueueForUpload: true});
@@ -26,7 +27,7 @@ $(document).ready(function(){
 		  maxFilesize: 1 // MB
 		};
 		drop_zone.on("addedfile",function(file){
-			if(file.size > 1048576){
+			if(file.size > 2048576){
 				alert("Please check if file size is > 1MB");
 				drop_zone.removeFile(file);
 			}
@@ -34,15 +35,60 @@ $(document).ready(function(){
 		drop_zone.on("sending",function(file,xhr,formData){
 			var csrf_token=$('[name="authencity_token"]').attr("value");
 			formData.append("authencity_token",csrf_token);
-			$('#ajax-loader').show();
+			ajax_loader.show();
 			$('#image_upload').fadeTo(400,0.5);
 		});
 		drop_zone.on("success",function(file,response){
-			$('#ajax-loader').hide();
+			ajax_loader.hide();
 			$('#image_upload').fadeTo(400,1);
 		});
+    drop_zone.on("canceled",function(file,response){
+      ajax_loader.hide();
+      $('#image_upload').fadeTo(400,1);
+    });
 	};
+
+  $('.share_album').click(function(){
+    ajax_loader.show();
+    $('.thumbnail_container').fadeTo(400,0.5);
+    FB.getLoginStatus(function(response){
+      if (response.status === "connected") {
+        post_api();
+      }
+      else if(response.status === "not_authorized"){
+        FB.login(function(){
+          post_api();
+        },{scope: "publish_actions,publish_stream"});
+      }
+      else{
+        FB.login(function(){
+          post_api();
+        },{scope: "publish_actions,publish_stream"}); 
+      }
+    });
+  });
+
 });
+
+function post_api(){
+  var album_id=$("#shared_album_id").html();
+  var share_url="http://local.foo.com:3000/shared_albums/"+album_id;
+    FB.ui({
+      method: 'feed',
+      link: share_url,
+      name: 'Photo Sharing',
+      caption: 'Test app'
+    }, function(response){
+      ajax_loader.hide();
+      $('.thumbnail_container').fadeTo(400,1);
+      if (!response || response.error) {
+        alert(response.error.message);
+      }
+      else{
+        alert("Album shared on your Facebook wall!");
+      }
+    });
+}
 
 window.fbAsyncInit = function() {
   FB.init({
@@ -56,13 +102,13 @@ window.fbAsyncInit = function() {
   // for any authentication related change, such as login, logout or session refresh. This means that
   // whenever someone who was previously logged out tries to log in again, the correct case below 
   // will be handled. 
-  FB.Event.subscribe('auth.authResponseChange', function(response) {
+  /*FB.Event.subscribe('auth.authResponseChange', function(response) {
     // Here we specify what we do with the response anytime this event occurs. 
     if (response.status === 'connected') {
       // The response object is returned with a status field that lets the app know the current
       // login status of the person. In this case, we're handling the situation where they 
       // have logged in to the app.
-      testAPI();
+      //testAPI();
       //FB.logout(FB.getLoginStatus);
     } else if (response.status === 'not_authorized') {
       // In this case, the person is logged into Facebook, but not into the app, so we call
@@ -81,7 +127,7 @@ window.fbAsyncInit = function() {
       // The same caveats as above apply to the FB.login() call here.
       FB.login(function(){},{scope: "publish_actions"});
     }
-  });
+  });*/
   };
 
   // Load the SDK asynchronously
@@ -95,9 +141,9 @@ window.fbAsyncInit = function() {
 
   // Here we run a very simple test of the Graph API after login is successful. 
   // This testAPI() function is only called in those cases. 
-  function testAPI() {
+  /*function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
       console.log('Good to see you, ' + response.name + '.');
     });
-  }
+  }*/

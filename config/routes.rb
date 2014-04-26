@@ -1,12 +1,16 @@
 PhotoSharing::Application.routes.draw do
+  resources :shared_albums, only: [:show,:index]
+
+
   resources :photos
 
 
   resources :users
-  resources :sessions
+  resources :sessions,only: [:create,:destroy]
   root to: 'sessions#new'
 
   match '/signout' => 'sessions#destroy'
+  #match '/shared_albums/:encoding' => 'shared_albums#show'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -5,12 +5,13 @@ gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
-
+#gem 'sqlite3'
+gem 'pg'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'dropzonejs-rails'
 gem 'cloudinary'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -32,7 +33,7 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'

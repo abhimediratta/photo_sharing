@@ -1,6 +1,17 @@
-<h1>Editing photo</h1>
+<fieldset class="col-md-4 sign-in-form">
+	<legend>Edit Details</legend>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @photo %> |
-<%= link_to 'Back', photos_path %>
+	<%= link_to cl_image_tag(@photo.photo_url, :width => 100, :height => 100, :crop => :pad), @photo.photo_url, :class => "swipebox" %>
+	<%= form_for(@photo,:html => {:class => "form-horizontal"}) do |f| %>
+		<div class="form-group">
+    		<div class="col-md-10">
+      		<%= f.text_field :caption,placeholder: "Caption",class: "form-control input-md", style: "margin-top:8%;" %>
+    		</div>
+  		</div>
+  		<% if f.object.new_record? %>
+	      <%= f.submit "Create",class: "btn btn-primary"  %>
+	    <% else %>
+	      <%= f.submit "Update",class: "btn btn-primary"  %>
+	    <% end %>
+	<% end %>
+</fieldset>

@@ -3,6 +3,6 @@ class AddUniqueEmailIndexToUsers < ActiveRecord::Migration
   	add_index :users, :email, :unique => true
   end
   def down
-  	remove_index :email
+  	remove_index :email,:users
   end
 end

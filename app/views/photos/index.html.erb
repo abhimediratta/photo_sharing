@@ -1,11 +1,22 @@
 
-<h1>Listing photos</h1>
+<h2>My photos</h1>
+<div class="col-md-10 thumbnail_container">
 <% @photos.each do |photo| %>
-  <%= link_to cl_image_tag(photo.photo_url, :width => 100, :height => 100, :crop => :pad), photo.photo_url, :class => "swipebox" %>
+	<div class="relative_thumbnail">
+	  <%= link_to "Delete",photo, method: :delete, data: { confirm: 'Are you sure?'},:class => "relative_delete" %>
+	  <%= link_to "Edit", edit_photo_path(photo),:class => "relative_edit" %>
+	  <%= link_to cl_image_tag(photo.photo_url, :width => 100, :height => 100, :crop => :pad), photo.photo_url, :class => "swipebox", :title => photo.caption %>
+	</div>
 <% end %>
+</div>
 
-<br />
-<%= link_to 'New Photo', new_photo_path %>
+<%= spinner_tag %>
 
-<fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
-
+<div class="col-md-4" style="margin-top:5%;">
+	<span class="btn-mrgn btn-fb-login share_album">
+	    <span class="icon icon-fb"></span>
+	    <span class="title">Share on Facebook</span>
+	</span>
+	<%= link_to button_tag("Add New Photos",type: 'button',class: 'btn-mrgn btn btn-info new_photo_btn'), new_photo_path %>
+</div>
+<span id="shared_album_id"><%= @shared_album.to_param %></span>

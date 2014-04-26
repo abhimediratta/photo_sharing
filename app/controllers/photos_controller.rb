@@ -4,7 +4,10 @@ class PhotosController < ApplicationController
   # GET /photos.json
   def index
     @photos = current_user.photos
-
+    @shared_album=current_user.shared_album
+    if !@shared_album
+      @shared_album=SharedAlbum.create!(:user_id => current_user.id)
+    end
     respond_to do |format|
       format.html # index.html.erb
       #format.json { render json: @photos }
@@ -33,11 +36,6 @@ class PhotosController < ApplicationController
     end
   end
 
-  # GET /photos/1/edit
-  def edit
-    @photo = Photo.find(params[:id])
-  end
-
   # POST /photos
   # POST /photos.json
   def create
@@ -53,12 +51,16 @@ class PhotosController < ApplicationController
     respond_to do |format|
       if @photo.save
         format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
-        format.json { render json: @photo, status: :created, location: @photo }
+        format.json { render json: "Success", status: :created }
       else
         format.html { render action: "new" }
         format.json { render json: @photo.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def edit
+    @photo = Photo.find(params[:id])
   end
 
   # PUT /photos/1
@@ -68,7 +70,7 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
-        format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
+        format.html { redirect_to photos_path, notice: 'Photo was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
