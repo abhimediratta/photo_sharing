@@ -29,7 +29,7 @@ body{
 .relative_thumbnail{
 	position: relative;
 	float: left;
-	margin: 0 10px;
+	margin: 15px;
 }
 
 .relative_edit{

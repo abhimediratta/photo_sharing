@@ -1,19 +1,19 @@
 ---
 development:
-  cloud_name: photo-sharing
-  api_key: '633887252945579'
-  api_secret: nFJuO5ToNUai_7e9S9LXgr78RFs
+  cloud_name: hc9gbykil
+  api_key: '798355828783145'
+  api_secret: _EjHcHir8pgPsp80-37ICGTuu-I
   enhance_image_tag: true
   static_image_support: false
 production:
-  cloud_name: photo-sharing
-  api_key: '633887252945579'
-  api_secret: nFJuO5ToNUai_7e9S9LXgr78RFs
+  cloud_name: hc9gbykil
+  api_key: '798355828783145'
+  api_secret: _EjHcHir8pgPsp80-37ICGTuu-I
   enhance_image_tag: true
   static_image_support: true
 test:
-  cloud_name: photo-sharing
-  api_key: '633887252945579'
-  api_secret: nFJuO5ToNUai_7e9S9LXgr78RFs
+  cloud_name: hc9gbykil
+  api_key: '798355828783145'
+  api_secret: _EjHcHir8pgPsp80-37ICGTuu-I
   enhance_image_tag: true
   static_image_support: false
