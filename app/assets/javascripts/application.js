@@ -72,7 +72,7 @@ $(document).ready(function(){
 
 function post_api(){
   var album_id=$("#shared_album_id").html();
-  var share_url="http://local.foo.com:3000/shared_albums/"+album_id;
+  var share_url="https://photo-sharing-direct.herokuapp.com/shared_albums/"+album_id;
     FB.ui({
       method: 'feed',
       link: share_url,

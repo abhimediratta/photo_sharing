@@ -4,8 +4,13 @@
 <% @photos.each do |photo| %>
 	<div class="relative_thumbnail">
 	  <%= link_to "Delete",photo, method: :delete, data: { confirm: 'Are you sure?'},:class => "relative_delete" %>
-	  <%= link_to "Edit", edit_photo_path(photo),:class => "relative_edit" %>
-	  <%= link_to cl_image_tag(photo.photo_url, :width => 100, :height => 100, :crop => :pad), photo.photo_url, :class => "swipebox", :title => photo.caption %>
+	  <% if photo.caption %>
+	  	<%= link_to "Edit Caption", edit_photo_path(photo),:class => "relative_edit" %>
+	  <% else %>
+	  	<%= link_to "Add Caption", edit_photo_path(photo),:class => "relative_edit" %>
+	  <% end %>
+	  <span class="relative_caption"><%= photo.caption %></span>
+	  <%= link_to cl_image_tag(photo.photo_url, :width => 150, :height => 150, :crop => :pad), photo.photo_url, :class => "swipebox", :title => photo.caption %>
 	</div>
 <% end %>
 </div>

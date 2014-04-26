@@ -42,6 +42,20 @@ body{
 	right: 10px;
 }
 
+.relative_caption{
+	position: absolute;
+	bottom: 0px;
+	width:60%;
+	white-space: nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	left: 20%;
+	background: #000;
+	color: #fff;
+	padding: 0 5px;
+	border-radius: 5px;
+}
+
 .clear{
 	clear: both;
 	display: block;
