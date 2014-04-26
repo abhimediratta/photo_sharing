@@ -49,7 +49,6 @@ $(document).ready(function(){
 	};
 
   $('.share_album').click(function(){
-    ajax_loader.show();
     $('.thumbnail_container').fadeTo(400,0.5);
     FB.getLoginStatus(function(response){
       if (response.status === "connected") {
@@ -71,6 +70,7 @@ $(document).ready(function(){
 });
 
 function post_api(){
+  ajax_loader.show();
   var album_id=$("#shared_album_id").html();
   var share_url="https://photo-sharing-direct.herokuapp.com/shared_albums/"+album_id;
     FB.ui({
