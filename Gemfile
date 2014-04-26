@@ -11,7 +11,7 @@ gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'dropzonejs-rails'
 gem 'cloudinary'
-
+gem "rack-timeout"
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
